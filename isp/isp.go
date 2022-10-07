@@ -46,23 +46,38 @@ func (m *MultiFunctionalMachine) Fax(doc *Document) string {
 type OldMachine struct{}
 
 func (old *OldMachine) Print(doc *Document) {
-	fmt.Println("Old machine printing document",doc)
+	fmt.Println("Old machine printing document", doc)
 }
 
 /* TO IMPLEMENT THE ISP */
-type Printer interface{
+type Printer interface {
 	Print(d Document)
 }
 
-type Scanner interface{
+type Scanner interface {
 	Scan(d Document)
 }
 
 type MyPrinter struct{}
 
-func (mP *MyPrinter) Print(doc Document){}
+func (mP *MyPrinter) Print(doc Document) {}
 
 type Photocopier struct{}
 
-func (p *Photocopier) Print(doc Document){}
-func (p *Photocopier) Scan(doc Document){}
+func (p *Photocopier) Print(doc Document) {}
+func (p *Photocopier) Scan(doc Document)  {}
+
+// combination of interfaces also known as the decorator pattern
+type newMultiFunctionalMachine struct {
+	printer Printer
+	scanner Scanner
+}
+
+func (nw *newMultiFunctionalMachine) Print(doc Document) {
+	nw.printer.Print(doc)
+
+}
+func (nw *newMultiFunctionalMachine) Scan(doc Document) {
+	
+	nw.scanner.Scan(doc)
+}
