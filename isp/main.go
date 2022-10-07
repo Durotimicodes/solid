@@ -16,4 +16,6 @@ func main() {
 	f := mM.Scan(doc)
 	fmt.Println(s, f)
 
+	od := OldMachine{}
+	od.Print(doc)
 }

@@ -5,6 +5,8 @@ import "fmt"
 /*
 The interface segregation principle states that you do not necessarily have to put all your methods
 into an interface, in some cases its better to segregate this methods
+
+try to break-up interface methods into parts people will definately need
 */
 
 // for example
@@ -41,6 +43,26 @@ func (m *MultiFunctionalMachine) Fax(doc *Document) string {
 	return s
 }
 
-// type OldMachine struct{}
+type OldMachine struct{}
 
-// func (old *OldMachine) Print(doc )
+func (old *OldMachine) Print(doc *Document) {
+	fmt.Println("Old machine printing document",doc)
+}
+
+/* TO IMPLEMENT THE ISP */
+type Printer interface{
+	Print(d Document)
+}
+
+type Scanner interface{
+	Scan(d Document)
+}
+
+type MyPrinter struct{}
+
+func (mP *MyPrinter) Print(doc Document){}
+
+type Photocopier struct{}
+
+func (p *Photocopier) Print(doc Document){}
+func (p *Photocopier) Scan(doc Document){}
