@@ -15,8 +15,8 @@ type Document struct {
 
 type Machine interface {
 	Print(d *Document)
-	Scan(d *Document)
-	Fax(d *Document)
+	Scan(d *Document) string
+	Fax(d *Document) string
 }
 type MultiFunctionalMachine struct{}
 
@@ -24,12 +24,23 @@ func (m *MultiFunctionalMachine) Print(doc *Document) {
 	fmt.Println(doc)
 }
 func (m *MultiFunctionalMachine) Scan(doc *Document) string {
-	s := fmt.Sprintf("Doc is scanned successfully %v", doc)
+	var s string
+	if doc != nil {
+		s += "Doc is scanned successfully"
+	}
+
 	return s
 }
 func (m *MultiFunctionalMachine) Fax(doc *Document) string {
-	s := fmt.Sprintf("Doc is faxed successfully %v", doc)
+
+	var s string
+	if doc != nil {
+		s += "Doc is faxed successfully"
+	}
+
 	return s
 }
 
+// type OldMachine struct{}
 
+// func (old *OldMachine) Print(doc )
